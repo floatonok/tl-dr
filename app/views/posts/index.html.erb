@@ -29,3 +29,10 @@
 <br>
 
 <%= link_to 'New Post', new_post_path %>
+
+<% if user_logged_in? %>
+  <%= current_user.email%>
+  <%= link_to "Log out", sign_out_path, method: :delete, class:"btn btn-default navbar-btn" %>
+<% else %>
+  <%= link_to "Log in", sign_in_path ,  class:"btn btn-default navbar-btn"%>
+<% end %>
