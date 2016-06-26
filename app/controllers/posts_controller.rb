@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user, only: [:new, :edit, :destroy]
+  before_action :authenticate_user, except: [:index, :show]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order('created_at DESC')
   end
 
   def show
@@ -18,24 +18,27 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
+    @post.user = current_user
     if @post.save
-      redirect_to @post, notice: 'Post was successfully created!'
+      redirect_to user_post_path(@post.user, @post), notice: 'Post was successfully created!'
     else
       render 'new'
     end
   end
 
   def update
-    if @post.update(post_params)
-      redirect_to @post, notice: 'Post was successfully updated.'
-    else
-      render 'edit'
+    if @post.user.id = current_user.id
+      if @post.update(post_params)
+        redirect_to user_post_path, notice: 'Post was successfully updated.'
+      else
+        render 'edit'
+      end
     end
   end
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: 'Post was successfully deleted.'
+    redirect_to user_posts_path, notice: 'Post was successfully deleted.'
   end
 
   private
@@ -46,6 +49,6 @@ class PostsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :title, :body)
+      params.require(:post).permit(:title, :body)
     end
 end

@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   #
   # get 'sessions/destroy'
 
-  resources :posts
-  resources :users
+  # resources :posts
+  # resources :users
 
   root 'posts#index', as: 'home'
 
@@ -14,5 +14,13 @@ Rails.application.routes.draw do
   delete 'sign_out', to: 'sessions#destroy'
 
   resources :sessions, only: [:create]
+
+  # namespace :user do
+  #   resources :posts
+  # end
+
+  resources :users do
+    resources :posts
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
