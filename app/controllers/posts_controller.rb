@@ -14,6 +14,9 @@ class PostsController < ApplicationController
   end
 
   def edit
+    unless @post.user == current_user
+      redirect_to home_path, notice: "This post doesn't belong to you!"
+    end
   end
 
   def create
@@ -27,18 +30,16 @@ class PostsController < ApplicationController
   end
 
   def update
-    if @post.user.id = current_user.id
-      if @post.update(post_params)
-        redirect_to user_post_path, notice: 'Post was successfully updated.'
-      else
-        render 'edit'
-      end
+    if @post.update(post_params)
+      redirect_to user_post_path(@post.user, @post), notice: 'Post was successfully updated.'
+    else
+      render 'edit'
     end
   end
 
   def destroy
     @post.destroy
-    redirect_to user_posts_path, notice: 'Post was successfully deleted.'
+    redirect_to user_posts_path, notice: 'Post was successfully destroyed.'
   end
 
   private
