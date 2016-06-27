@@ -1,22 +1,22 @@
 <%= form_for [:user_post, @summary] do |f| %>
-  <% if summary.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(summary.errors.count, "error") %> prohibited this summary from being saved:</h2>
+<% if summary.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(summary.errors.count, "error") %> prohibited this summary from being saved:</h2>
 
-      <ul>
-      <% summary.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% summary.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
-    <%= f.label :summary %>
-    <%= f.text_area :summary %>
-  </div>
+<div class="form-group">
+  <%= f.label :summary %>
+  <%= f.text_area :summary, class: "form-control", placeholder: "Summary of post in 140 characters or less", autofocus: true %>
+</div>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<div class="form-group">
+  <%= f.submit %>
+</div>
 <% end %>

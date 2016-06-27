@@ -1,5 +1,7 @@
 class SummariesController < ApplicationController
   before_action :set_summary, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user, except: [:index, :show]
+
 
   # GET /summaries
   # GET /summaries.json
@@ -26,10 +28,11 @@ class SummariesController < ApplicationController
   def create
     @summary = Summary.new(summary_params)
     @summary.post = Post.find(params[:post_id])
+    @summary.user = current_user
 
     respond_to do |format|
       if @summary.save
-        format.html { redirect_to @summary, notice: 'Summary was successfully created.' }
+        format.html { redirect_to user_post_path(@summary.post.user, @summary.post), notice: 'Summary was successfully created.' }
         format.json { render :show, status: :created, location: @summary }
       else
         format.html { render :new }

@@ -1,27 +1,37 @@
 <%= form_for [:user, @post] do |f| %>
-  <% if post.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+<% if post.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
-      <ul>
-      <% post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% post.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="field">
+<div class="form-group">
+  <div class="control-label col-sm-2">
     <%= f.label :title %>
-    <%= f.text_field :title %>
   </div>
+  <div class="col-sm-8">
+    <%= f.text_field :title, class: "form-control", placeholder: "Enter Post Title", autofocus: true%>
+  </div>
+</div>
 
-  <div class="field">
+<div class="form-group">
+  <div class="control-label col-sm-2">
     <%= f.label :body %>
-    <%= f.text_field :body %>
   </div>
+  <div class="col-sm-8">
+    <%= f.text_area :body, :rows => "20", class: "form-control", placeholder: "Enter Post Content", autofocus: true %>
+  </div>
+</div>
 
-  <div class="actions">
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
     <%= f.submit %>
   </div>
+</div>
 <% end %>

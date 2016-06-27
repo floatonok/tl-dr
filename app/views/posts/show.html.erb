@@ -1,28 +1,33 @@
-<p id="notice"><%= notice %></p>
+<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+</div>
 
-<p>
-  <strong>User:</strong>
-  <%= @post.user.username %>
-</p>
+<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+  <h1><%= @post.title %></h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+  <p>By: <%= @post.user.username %></p>
 
-<p>
-  <strong>Body:</strong>
-  <%= @post.body %>
-</p>
-
-<p>
-  <strong>tl:dr:</strong>
-  <% @post.summaries.each do |summary| %>
-   <h3><%= summary.summary %></h3>
+  <% if (@post.summaries[0]) %>
+  <h3>tl:dr: <%= @post.summaries[0].summary %></h3>
+  <% else %>
+  <h4></h4>
   <% end %>
-</p>
 
-<%= link_to 'Create tl:dr', new_user_post_summary_path(@post.user, @post) %> |
+  <p><%= @post.body %></p>
 
-<%= link_to 'Edit', edit_user_post_path(@post) %> |
-<%= link_to 'Back', user_posts_path %>
+  <%= link_to 'Edit', edit_user_post_path(@post) %> |
+  <%= link_to 'Back', user_posts_path %>
+</div>
+
+<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+  <h3>tl:dr</h3>
+  <% @post.summaries.each do |summary| %>
+  <div class="well">
+    <h5><%= summary.summary %></h5>
+    By: <%= summary.user.username %>
+  </div>
+  <% end %>
+  <button type="button" class="btn"><%= link_to 'Create tl:dr', new_user_post_summary_path(@post.user, @post) %></button>
+</div>
+
+<div class="col-lg-1 col-md-1 col-sm-6 col-xs-12">
+</div>
