@@ -17,6 +17,7 @@ class SummariesController < ApplicationController
   # GET /summaries/new
   def new
     @summary = Summary.new
+    @summary.post = Post.find(params[:post_id])
   end
 
   # GET /summaries/1/edit

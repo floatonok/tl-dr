@@ -15,6 +15,8 @@
 $border-radius-base: 0px;
 $brand-primary: black;
 $well-bg: transparent;
+$navbar-default-bg: white;
+$font-family-sans-serif: 'Abel', sans-serif;
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
@@ -35,4 +37,8 @@ p {
 
 .well {
   border: 2px solid black;
+}
+
+.navbar {
+  border-bottom: 2px solid black;
 }

@@ -6,7 +6,7 @@
 
 <%= render 'form', summary: @summary %>
 
-<%= link_to 'Back', user_post_summaries_path %>
+<%= link_to 'Back', user_post_path(@summary.post.user, @summary.post) %>
 </div>
 
 <div class="col-lg-3 col-md-3 col-sm-6 hidden-xs">
